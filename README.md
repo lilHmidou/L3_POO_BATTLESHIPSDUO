@@ -1,38 +1,51 @@
-# Règles
+# BATTLESHIP_DUO POUR "Bataille Navale 2.0"
+Dans le cadre de la matière POO, le projet consiste à concevoir un jeu de société connu en Java. Ce dépôt est celui de mon binôme.
 
-Le jeu se joue à au moins deux joueurs et comporte un maitre du jeu non joueur.
+# Bataille Navale 2.0
 
-## Mise en place
+## Description
+Bataille Navale 2.0 est une version automatisée et enrichie du jeu classique de bataille navale. Ce projet se concentre sur des affrontements entre bots intelligents, avec de nouvelles fonctionnalités stratégiques et des options de gameplay.
 
-Chaque joueur reçoit un nombre déterminé de cartes tirées aléatoirement, qu'il garde face cachée.
+## Classes 
 
-## Déroulé de la partie
+### Board
 
-Les joueurs sont répartis dans l'ordre d'arrivée. Chaque joueur affronte le prochain dans un duel, à tour de rôle (le dernier joueur affronte le premier). Si un joueur n'a plus de carte, il perd la partie et ne peut plus joueur.
+**Description** : Représente le plateau de jeu avec un tableau 2D de `Cell`.
+**Fonction** : Utilisée pour représenter le plateau pour chaque bot.
 
-### Déroulé des duels
+### Cell
+**Description** : Représente une cellule sur le plateau, pouvant contenir une partie d'un bateau.
+**Fonction** : Utilisée pour suivre l'état du jeu, notamment les tirs et les bateaux touchés.
 
-* Lors d'un duel, chacun de joueur joue une carte de sa pile. Le joueur ayant joué la carte de plus haute valeur l'emporte et met sous sa pile les cartes jouées, en les mélangeant.
-* Si les deux joueurs ont joué une carte de même valeur, le duel recommence en accumulant les cartes jouées de telle sorte à ce que le gagnant empoche la totalité des cartes du duel.
+### Boat
+**Description** : Représente un bateau avec ses cellules et son état (coulé ou non).
+**Fonction** : Intégrée dans la logique des bots pour gérer les flottes.
 
-## Fin de la partie
+### CoordinateHelper
+**Description** : Utilitaire pour la conversion et la validation des coordonnées.
+**Fonction** : Essentielle pour les algorithmes de décision des bots.
 
-Le gagnant est le dernier joueur en lice.
+### ConsoleHelper
+**Description** : Fournit des méthodes d'affichage pour la console.
+**Fonction** : Utilisée pour un affichage minimaliste des actions et résultats.
 
-### Détail des classes principales
+### Config
+**Description** : Configuration du jeu, incluant les types de bateaux.
+**Fonction** : Mise à jour pour les nouvelles règles et types de navires.
 
-Un exemple de jeu supportant le réseau
+### Game
+**Description** : Logique principale du jeu, gérant le déroulement de la partie.
+**Fonction** : Simplifiée pour automatiser le jeu avec des bots, suppression des interactions utilisateur.
 
-* LocalWarGame la version du jeu supportant le jeu en local
-* WarGameEngine le moteur du jeu
-* WarGameNetorkPlayer le joueur distant en cas de partie réseau
-* WarGameNetworkEngine la version du jeu supportant le réseau
+### GameLauncher
+**Description** : Logique du jeu, gérant l'ordre des tâches du jeu.
+**Fonction** : Permet de lancer le jeu.
 
+### Player
+**Description** : Représente une abstraction d'un joueur.
+**Fonction** : Permet de créer plusieurs instance de bots.
 
-# Protocole réseau
-
-> Le protocole réseau définit les séquences des commandes échangées entre les différentes parties prenantes. Il doit contenir, pour chaque commande, l'expéditeur, le destinataire, le nom de la commande et le contenu du corps de la commande.
-
-![protocole](doc/protocle.png)
-
+### Bots
+**Description** : Représente un joueur contrôlé par ordinateur.
+**Fonction** : Enrichie avec de nouvelles stratégies de jeu et intégration des fonctionnalités supplémentaires (mines, radar, etc.).
 
