@@ -48,7 +48,6 @@ public class Player extends AbstractPlayer{
             
         handleCellHit(targetCell, enemy);
         super.setLastCellShot(targetCell.getX(), targetCell.getY());
-        incrementStatNbTotalShot();
         
     }
 
@@ -77,7 +76,6 @@ public class Player extends AbstractPlayer{
             Cell targetCell = isLine ? enemy.getBoard().getCells()[target][i] : enemy.getBoard().getCells()[i][target];
             handleCellHit(targetCell, enemy);
             super.setLastCellShot(targetCell.getX(), targetCell.getY());
-            incrementStatNbTotalShot();
         }           
         ConsoleHelper.sleep(1000);
         hasUsedAirStrike = true;
@@ -100,7 +98,6 @@ public class Player extends AbstractPlayer{
                 Cell targetCell = enemy.getBoard().getCells()[i][j];
                 handleCellHit(targetCell, enemy);
                 super.setLastCellShot(targetCell.getX(), targetCell.getY());
-                incrementStatNbTotalShot();
             }
         }
         ConsoleHelper.sleep(1000);
@@ -117,7 +114,7 @@ public class Player extends AbstractPlayer{
             if (!targetCell.isShot()) {
                 targetCell.shoot();
                 enemy.getBoard().updateAvailableCoordinates(targetCell.getX(), targetCell.getY());
-
+                incrementStatNbTotalShot();
                 if (targetCell.getId() > 0) {
                     // Gestion des mines
                     if (targetCell.getId() == 99) {
