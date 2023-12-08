@@ -6,7 +6,6 @@ import java.util.Random;
 import fr.pantheonsorbonne.miage.game.setting.Boat;
 import fr.pantheonsorbonne.miage.game.setting.Cell;
 import fr.pantheonsorbonne.miage.game.setting.Config;
-import fr.pantheonsorbonne.miage.game.helpers.ConsoleHelper;
 import fr.pantheonsorbonne.miage.game.helpers.CoordinateHelper;
 
 public class Player extends AbstractPlayer{
@@ -77,7 +76,6 @@ public class Player extends AbstractPlayer{
             handleCellHit(targetCell, enemy);
             super.setLastCellShot(targetCell.getX(), targetCell.getY());
         }           
-        ConsoleHelper.sleep(1000);
         hasUsedAirStrike = true;
     }
 
@@ -100,7 +98,6 @@ public class Player extends AbstractPlayer{
                 super.setLastCellShot(targetCell.getX(), targetCell.getY());
             }
         }
-        ConsoleHelper.sleep(1000);
         hasUsedNuclearBomb = true;
     }
 

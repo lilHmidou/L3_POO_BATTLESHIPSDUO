@@ -1,51 +1,53 @@
-# BATTLESHIP_DUO POUR "Bataille Navale 2.0"
-Dans le cadre de la matière POO, le projet consiste à concevoir un jeu de société connu en Java. Ce dépôt est celui de mon binôme.
+# L3_POO_BATTLESHIPS - "Bataille Navale 2.0"
 
-# Bataille Navale 2.0
+## Présentation du Projet
 
-## Description
-Bataille Navale 2.0 est une version automatisée et enrichie du jeu classique de bataille navale. Ce projet se concentre sur des affrontements entre bots intelligents, avec de nouvelles fonctionnalités stratégiques et des options de gameplay.
+**Bataille Navale 2.0** renouvelle le classique jeu de stratégie maritime en introduisant des bots intelligents et des fonctionnalités de jeu avancées. Ce projet, développé dans le cadre de la matière Programmation Orientée Objet (POO), propose une expérience de jeu automatisée, stratégique et riche en actions.
 
-## Classes 
+## Règles du Jeu
 
-### Board
+### Mise en Place
+1. **Plateau de Jeu** : Chaque joueur (bot) dispose d'un plateau 10x10 pour placer ses navires et deviner les positions ennemies.
+2. **Navires** : La flotte de chaque joueur comprend :
+   - 1 porte-avions (5 cases)
+   - 1 croiseur (4 cases)
+   - 2 contre-torpilleurs (3 cases chacun)
+   - 1 torpilleur (2 cases)
+3. **Tour de Jeu** : Les bots jouent à tour de rôle, bombardant une case à la fois. Les réponses aux tirs (touché, manqué, coulé) sont communiquées après chaque tir.
+4. **Fin de la Partie** : Le jeu se termine lorsque tous les navires de l'un des bots sont coulés.
 
-**Description** : Représente le plateau de jeu avec un tableau 2D de `Cell`.
-**Fonction** : Utilisée pour représenter le plateau pour chaque bot.
+### Règles Supplémentaires
+- **Mines** : Des mines sont placées secrètement. Si un bot tire sur une mine, il perd son prochain tour.
+- **Radar** : Une fois par partie, un bot peut scanner une zone 3x3 pour détecter la présence de navires sans connaître leurs positions exactes.
+- **Brouillard de Guerre** : Après quelques tours, une zone 5x5 devient cachée temporairement.
+- **Tir en Rafale** : Une fois par partie, un bot peut effectuer un tir sur 3 cases consécutives.
+- **Frappe Aérienne** : Chaque bot dispose d'une frappe aérienne pour bombarder une ligne ou colonne entière. Utilisable une seule fois.
+- **Système de Défense** : Deux navires par flotte sont équipés d'un système de défense, les protégeant du premier tir.
+- **Sous-marin de Reconnaissance** : Permet de détecter la présence de navires ennemis sur une ligne ou une colonne donnée.
 
-### Cell
-**Description** : Représente une cellule sur le plateau, pouvant contenir une partie d'un bateau.
-**Fonction** : Utilisée pour suivre l'état du jeu, notamment les tirs et les bateaux touchés.
+## Fonctionnalités Clés
 
-### Boat
-**Description** : Représente un bateau avec ses cellules et son état (coulé ou non).
-**Fonction** : Intégrée dans la logique des bots pour gérer les flottes.
+- **Jeu Autonome** : Les parties se jouent exclusivement entre bots.
+- **Fonctionnalités Stratégiques Avancées** : Mines, radars, frappes aériennes, et plus.
+- **Bots Intelligents** : Chaque bot dispose de stratégies uniques et utilise les nouvelles fonctionnalités de jeu.
 
-### CoordinateHelper
-**Description** : Utilitaire pour la conversion et la validation des coordonnées.
-**Fonction** : Essentielle pour les algorithmes de décision des bots.
+## Architecture du Projet
 
-### ConsoleHelper
-**Description** : Fournit des méthodes d'affichage pour la console.
-**Fonction** : Utilisée pour un affichage minimaliste des actions et résultats.
+Le projet est structuré autour de plusieurs classes Java essentielles à la mécanique et à la logique du jeu.
 
-### Config
-**Description** : Configuration du jeu, incluant les types de bateaux.
-**Fonction** : Mise à jour pour les nouvelles règles et types de navires.
+- **`Board`** : Représente le plateau de jeu.
+- **`Cell`** : Incarne une cellule du plateau, pouvant contenir une partie d'un navire.
+- **`Boat`** : Modélise un navire avec ses cellules et son état.
+- **`CoordinateHelper`** : Fournit des outils pour la gestion des coordonnées.
+- **`Config`** : Contient la configuration du jeu.
+- **`Game`** : Encapsule la logique principale du jeu.
+- **`GameLauncher`** : Point d'entrée pour démarrer le jeu.
+- **`Player`/`Bot`** : Définit un joueur (bot) avec des stratégies de jeu avancées.
 
-### Game
-**Description** : Logique principale du jeu, gérant le déroulement de la partie.
-**Fonction** : Simplifiée pour automatiser le jeu avec des bots, suppression des interactions utilisateur.
+## Lancement du Jeu
 
-### GameLauncher
-**Description** : Logique du jeu, gérant l'ordre des tâches du jeu.
-**Fonction** : Permet de lancer le jeu.
+Pour démarrer une partie de Bataille Navale 2.0, exécutez la classe `GameLauncher`. La partie se déroulera automatiquement, illustrant la compétition stratégique entre les bots.
 
-### Player
-**Description** : Représente une abstraction d'un joueur.
-**Fonction** : Permet de créer plusieurs instance de bots.
+---
 
-### Bots
-**Description** : Représente un joueur contrôlé par ordinateur.
-**Fonction** : Enrichie avec de nouvelles stratégies de jeu et intégration des fonctionnalités supplémentaires (mines, radar, etc.).
-
+**Bataille Navale 2.0** vous invite à découvrir une version automatisée et stratégiquement enrichie d'un jeu de guerre maritime classique. Préparez-vous à une expérience où la tactique, l'intelligence artificielle et l'innovation règnent en maître!

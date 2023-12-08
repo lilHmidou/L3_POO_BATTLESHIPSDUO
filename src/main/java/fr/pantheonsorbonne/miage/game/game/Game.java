@@ -1,6 +1,5 @@
 package fr.pantheonsorbonne.miage.game.game;
 
-import  fr.pantheonsorbonne.miage.game.helpers.ConsoleHelper;
 import  fr.pantheonsorbonne.miage.game.playerBots.Player;
 import  fr.pantheonsorbonne.miage.game.setting.Boat;
 
@@ -18,8 +17,7 @@ public class Game {
         this.player2 = player2;
         
         System.out.println("la partie opposant " + player1.getPlayerName() + " à " + player2.getPlayerName() + " va commencer");
-        ConsoleHelper.eraseConsole();
-
+        System.out.println("");
         player1.placeBoats();
         player2.placeBoats();
 
@@ -48,7 +46,6 @@ public class Game {
     }
 
     public void end() {
-        ConsoleHelper.eraseConsole();
         System.out.println("Le joueur " + playerWinner + " a gagné la partie");
         player1.printStats();
         System.out.println("");
@@ -74,8 +71,6 @@ public class Game {
     }
 
     private void printGameLauncher(){
-        ConsoleHelper.eraseConsole();
         System.out.println("Bienvenue dans le jeu de bataille navale 2.0");
-        ConsoleHelper.sleep(1000);
     }
 }

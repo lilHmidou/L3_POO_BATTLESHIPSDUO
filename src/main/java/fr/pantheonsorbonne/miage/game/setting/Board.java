@@ -1,11 +1,8 @@
 package fr.pantheonsorbonne.miage.game.setting;
 
-import fr.pantheonsorbonne.miage.game.setting.Boat;
-import fr.pantheonsorbonne.miage.game.setting.Cell;
-import fr.pantheonsorbonne.miage.game.setting.Config;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 import fr.pantheonsorbonne.miage.game.helpers.CoordinateHelper;
 
