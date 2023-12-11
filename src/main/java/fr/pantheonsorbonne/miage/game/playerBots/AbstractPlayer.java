@@ -42,6 +42,16 @@ public abstract class AbstractPlayer {
 
     protected abstract void setPlayerName();
 
+    public abstract boolean setHasUsedRadar();
+
+    public abstract boolean setHasUsedAirStrike();
+
+    public abstract boolean setHasUsedNuclearBomb();
+
+    public abstract boolean setHasUsedSubmarine();
+
+    public abstract boolean setHasUsedBurstFire();
+
     public void setSkipNextTurn(boolean skip){
         this.skipNextTurn = skip;
     }

@@ -2,7 +2,7 @@ package fr.pantheonsorbonne.miage.game.setting;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.function.BooleanSupplier;
 
 import fr.pantheonsorbonne.miage.game.helpers.CoordinateHelper;
 
@@ -141,6 +141,41 @@ public class Board{
     public int getNbBoats() {
         return nbBoats;
     }
+
+
+    public boolean hasOverlappingBoats() {
+        for (int i = 0; i < boats.length; i++) {
+            for (int j = i + 1; j < boats.length; j++) {
+                if (boats[i] != null && boats[j] != null && boatsOverlap(boats[i], boats[j])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private boolean boatsOverlap(Boat boat1, Boat boat2) {
+        for (Cell cell1 : boat1.getCells()) {
+            for (Cell cell2 : boat2.getCells()) {
+                if (cell1.getX() == cell2.getX() && cell1.getY() == cell2.getY()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public long getBoatsWithDefenseSystem() {
+        long count = 0;
+        for (Boat boat : boats) {
+            if (boat != null && boat.isProtected()) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    
 
     
 }

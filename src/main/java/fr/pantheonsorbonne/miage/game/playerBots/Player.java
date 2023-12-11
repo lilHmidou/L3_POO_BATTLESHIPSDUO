@@ -38,6 +38,31 @@ public class Player extends AbstractPlayer{
     }
 
     @Override
+    public boolean setHasUsedRadar() {
+        return hasUsedRadar;
+    }
+
+    @Override
+    public boolean setHasUsedAirStrike() {
+        return hasUsedAirStrike;
+    }
+
+    @Override
+    public boolean setHasUsedNuclearBomb() {
+        return hasUsedNuclearBomb;
+    }
+
+    @Override
+    public boolean setHasUsedSubmarine() {
+        return hasUsedSubmarine;
+    }
+
+    @Override
+    public boolean setHasUsedBurstFire() {
+        return hasUsedBurstFire;
+    }
+
+    @Override
     public void makeMove(Player enemy){
     }
 

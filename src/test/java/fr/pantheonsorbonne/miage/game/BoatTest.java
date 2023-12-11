@@ -55,4 +55,18 @@ public class BoatTest {
         assertEquals(cells.length, boat.getSize());
         // Autres vérifications basées sur la configuration
     }
+
+    @Test
+
+    public void testGetCellByCoordinates() {
+    Cell[] cells = {new Cell(1, 1), new Cell(1, 2)};
+    Boat boat = new Boat(cells, 1, "Destroyer", true);
+    
+    Cell cell = boat.getCells(1, 1);
+    assertEquals(cells[0], cell, "Doit retourner la première cellule pour les coordonnées (1,1)");
+
+    cell = boat.getCells(1, 2);
+    assertEquals(cells[1], cell, "Doit retourner la deuxième cellule pour les coordonnées (1,2)");
+}
+
 }

@@ -9,8 +9,9 @@ import fr.pantheonsorbonne.miage.game.setting.Cell;
 
 public class Bot extends Player {
 
-    private int rounds = 0;
-    private boolean isSubmarineLineScan;
+    protected int rounds = 0;
+    protected boolean isSubmarineLineScan;
+    protected Cell targetCellRandomForShoot;
     
 
     public Bot(String name){
@@ -57,7 +58,7 @@ public class Bot extends Player {
     }
 
 
-    private Cell chooseTargetCell(Player enemy) {
+    public Cell chooseTargetCell(Player enemy) {
         // Stratégie de suivi basée sur les cellules connues et potentielles
         if (super.currentBoat != 0 && 
         !super.potentialCells.isEmpty() && 
@@ -81,7 +82,7 @@ public class Bot extends Player {
 
 
 
-    private boolean isInBoard(List<Cell> cells, Cell targetCell){
+    protected boolean isInBoard(List<Cell> cells, Cell targetCell){
         for(Cell cell : cells){
             if(cell.getX() == targetCell.getX() && cell.getY() == targetCell.getY()){
                 return true;
@@ -91,13 +92,13 @@ public class Bot extends Player {
     }
 
     
-    private void updateStrategicLists(Player enemy) {
+    protected void updateStrategicLists(Player enemy) {
         super.knownBoatCells = updateListWithAvailableCells(super.knownBoatCells, enemy);
         super.potentialCells = updateListWithAvailableCells(super.potentialCells, enemy);
     }
     
 
-    private List<Cell> updateListWithAvailableCells(List<Cell> list, Player enemy) {
+    protected List<Cell> updateListWithAvailableCells(List<Cell> list, Player enemy) {
         List<Cell> updatedList = new ArrayList<Cell>();
         for (Cell cell : list) {
             if (!enemy.getBoard().getCell(cell.getX(), cell.getY()).isShot()) {
@@ -108,7 +109,7 @@ public class Bot extends Player {
     } 
 
     
-    private void shootRandomly(Player enemy) {
+    protected void shootRandomly(Player enemy) {
             // Tirer sur une cellule aléatoire disponible
             List<int[]> availableCoordinates = enemy.getBoard().getAvailableCoordinates();
             Cell targetCellRandom ;
@@ -123,11 +124,12 @@ public class Bot extends Player {
                 
             }while(validShot);
         
+            this.targetCellRandomForShoot = targetCellRandom ;
             super.shoot(enemy, targetCellRandom);
         }
 
     
-    private boolean shouldUseSpecialFeatures(Player enemy) {
+    protected boolean shouldUseSpecialFeatures(Player enemy) {
         // Exemple de condition : Utiliser une fonctionnalité spéciale si plus de la moitié du tableau est intacte
         if (rounds > 5 && (super.radarDetectedBoats.isEmpty() && 
         super.subMarineDetectedBoat.isEmpty()) && 
@@ -139,7 +141,7 @@ public class Bot extends Player {
     }
 
     
-    private void checkAndUseSpecialFeature(Player enemy) {
+    protected void checkAndUseSpecialFeature(Player enemy) {
         // Obtenez une cellule aléatoire valide
         Cell targetCell = getRandomValidCell(enemy);
         
@@ -157,7 +159,7 @@ public class Bot extends Player {
     }
     
     
-    private Cell getRandomValidCell(Player enemy) {
+    protected Cell getRandomValidCell(Player enemy) {
         List<int[]> availableCoordinates = enemy.getBoard().getAvailableCoordinates();
         Random random = new Random();
         while (true) {
@@ -169,7 +171,7 @@ public class Bot extends Player {
         }
     }
     
-    private List<Cell> prepareBurstFireCells(Cell startingCell, Player enemy) {
+    protected List<Cell> prepareBurstFireCells(Cell startingCell, Player enemy) {
         List<Cell> targetCells = new ArrayList<>();
         targetCells.add(startingCell);
         while (targetCells.size() < 3) {
@@ -183,11 +185,11 @@ public class Bot extends Player {
         return targetCells;
     }
 
-    private boolean shouldUseRecognition(Player enemy) {    
+    protected boolean shouldUseRecognition(Player enemy) {    
         return  (rounds > 3 && (!super.hasUsedRadar || !super.hasUsedSubmarine)) ;
     }
 
-    private void requestForRecognition(Player enemy){
+    protected void requestForRecognition(Player enemy){
         // Logique pour demander une reconnaissance au hasard car début de partie
         List<int[]> availableCoordinates = enemy.getBoard().getAvailableCoordinates();
         Random random = new Random();
@@ -205,7 +207,7 @@ public class Bot extends Player {
     }
 
 
-    private void updateDetectedCells(Player enemy) {
+    protected void updateDetectedCells(Player enemy) {
         List<int[]> availableCoordinates = enemy.getBoard().getAvailableCoordinates();
     
         // Mise à jour de la liste des bateaux détectés par le sous-marin
@@ -216,7 +218,7 @@ public class Bot extends Player {
     }
     
 
-    private void updateListWithAvailableCoordinates(List<Cell> detectedList, List<int[]> availableCoordinates) {
+    protected void updateListWithAvailableCoordinates(List<Cell> detectedList, List<int[]> availableCoordinates) {
         List<Cell> updatedList = new ArrayList<>();
     
         for (Cell detectedCell : detectedList) {
@@ -233,7 +235,7 @@ public class Bot extends Player {
     }
 
 
-    private void handleSubmarineDetected(Player enemy) {
+    protected void handleSubmarineDetected(Player enemy) {
         // Logique pour gérer les cibles détectées par le sous-marin
         int detectedSize = super.subMarineDetectedBoat.size();
 
@@ -254,21 +256,26 @@ public class Bot extends Player {
         }
     
 
-    private void handleRadarDetected(Player enemy) {
-        // Logique pour gérer les cibles détectées par le radar
-        int detectedSize = super.radarDetectedBoats.size();
+        protected void handleRadarDetected(Player enemy) {
+            // Logique pour gérer les cibles détectées par le radar
+            int detectedSize = super.radarDetectedBoats.size();
+    
+            // Utilisez le missile nucléaire ou le tir en rafale si approprié
+            if (detectedSize > 1) {
+                if (!super.hasUsedNuclearBomb) {
+                    super.useNuclearBomb(enemy, super.radarDetectedBoats.get(0).getX(), super.radarDetectedBoats.get(0).getY());
+                } else if (!super.hasUsedBurstFire && detectedSize > 2) {
+                    super.useBurstFire(enemy, super.radarDetectedBoats);
+                }else {
+    super.shoot(enemy, super.radarDetectedBoats.get(0));
+    }
+            } else if(detectedSize > 0){
+                    super.shoot(enemy, super.radarDetectedBoats.get(0));
+            }else{
+                    shootRandomly(enemy);
+                }
+            }
 
-        // Utilisez le missile nucléaire ou le tir en rafale si approprié
-        if (detectedSize > 1) {
-            if (!super.hasUsedNuclearBomb) {
-                super.useNuclearBomb(enemy, super.radarDetectedBoats.get(0).getX(), super.radarDetectedBoats.get(0).getY());
-            } else if (!super.hasUsedBurstFire && detectedSize > 2) {
-                super.useBurstFire(enemy, super.radarDetectedBoats);
-            }
-        } else if(detectedSize > 0){
-                super.shoot(enemy, super.radarDetectedBoats.get(0));
-        }else{
-                shootRandomly(enemy);
-            }
+        public void setRounds(int i) {
         }
 }

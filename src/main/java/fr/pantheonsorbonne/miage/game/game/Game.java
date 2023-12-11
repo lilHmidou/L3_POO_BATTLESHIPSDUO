@@ -52,11 +52,11 @@ public class Game {
         player2.printStats();
     }
 
-    private boolean over() {
+    public boolean over() {
         return allBoatsSunk(player1.getBoard().getBoats()) || allBoatsSunk(player2.getBoard().getBoats());
     }
 
-    private boolean allBoatsSunk(Boat[] boats) {
+    public boolean allBoatsSunk(Boat[] boats) {
         for (Boat boat : boats) {
             if (!boat.isSunk() && (boat.getId() != 99)) {
                 return false;
@@ -66,11 +66,30 @@ public class Game {
     }
 
 
-    private void setFirstPlayer(){
+    public void setFirstPlayer(){
         this.playerPlay = (int) Math.round(Math.random() * 2 + 1);
     }
 
     private void printGameLauncher(){
         System.out.println("Bienvenue dans le jeu de bataille navale 2.0");
     }
+
+    public Player getPlayer1() {
+        return this.player1;
+    }
+
+    public Player getPlayer2() {
+        return this.player2;
+    }
+
+    public String getPlayerWinner() {
+    return this.playerWinner;
+}
+
+
+    public int getPlayerPlay() {
+        return this.playerPlay;
+    }
+    
+
 }
