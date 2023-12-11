@@ -19,7 +19,7 @@
 ### Règles Supplémentaires
 - **Mines** : Des mines sont placées secrètement. Si un bot tire sur une mine, il perd son prochain tour.
 - **Radar** : Une fois par partie, un bot peut scanner une zone 3x3 pour détecter la présence de navires sans connaître leurs positions exactes.
-- **Brouillard de Guerre** : Après quelques tours, une zone 5x5 devient cachée temporairement.
+- **Frappe nucléaire** : Une fois par partie, un bot peut effectuer un tir sur une zone 3x3. 
 - **Tir en Rafale** : Une fois par partie, un bot peut effectuer un tir sur 3 cases consécutives.
 - **Frappe Aérienne** : Chaque bot dispose d'une frappe aérienne pour bombarder une ligne ou colonne entière. Utilisable une seule fois.
 - **Système de Défense** : Deux navires par flotte sont équipés d'un système de défense, les protégeant du premier tir.
