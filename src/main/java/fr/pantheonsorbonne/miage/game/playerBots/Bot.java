@@ -11,7 +11,7 @@ import fr.pantheonsorbonne.miage.game.setting.Cell;
  * Les algorithmes et stratégies de jeu sont les mêmes pour tous les bots, ceci, afin de
  * garantir l'équité du jeu et un niveau élevé.
  * 
- * 
+ * Les méthodes sont de portée protected, ceci pour effectué nos tests de couvertures.
  */
 
 public class Bot extends Player {
