@@ -3,7 +3,6 @@ package fr.pantheonsorbonne.miage.game;
 import java.util.List;
 
 import fr.pantheonsorbonne.miage.game.playerBots.Player;
-import fr.pantheonsorbonne.miage.game.setting.Board;
 import fr.pantheonsorbonne.miage.game.setting.Cell;
 
 public class TestablePlayer extends Player {
@@ -39,7 +38,7 @@ public class TestablePlayer extends Player {
         return super.hasUsedNuclearBomb;
     }
 
-    public void publicUseSubmarine(Player enemy, boolean isLine , int target) {
+    public void publicUseSubmarine(Player enemy, boolean isLine, int target) {
         super.useSubmarine(enemy, isLine, target);
     }
 

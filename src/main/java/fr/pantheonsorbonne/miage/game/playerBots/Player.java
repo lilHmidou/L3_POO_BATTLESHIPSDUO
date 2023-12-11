@@ -1,4 +1,5 @@
 package fr.pantheonsorbonne.miage.game.playerBots;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,7 +9,7 @@ import fr.pantheonsorbonne.miage.game.setting.Cell;
 import fr.pantheonsorbonne.miage.game.setting.Config;
 import fr.pantheonsorbonne.miage.game.helpers.CoordinateHelper;
 
-public class Player extends AbstractPlayer{
+public class Player extends AbstractPlayer {
 
     protected List<Cell> knownBoatCells = new ArrayList<>();
     protected List<Cell> potentialCells = new ArrayList<>();
@@ -16,10 +17,9 @@ public class Player extends AbstractPlayer{
     protected String name;
 
     protected List<Cell> subMarineDetectedMine = new ArrayList<>();
-    protected List<Cell> subMarineDetectedBoat  = new ArrayList<>();
+    protected List<Cell> subMarineDetectedBoat = new ArrayList<>();
     protected List<Cell> radarDetectedBoats = new ArrayList<>();
     protected List<Cell> radarDetectedMines = new ArrayList<>();
-
 
     public Player() {
         super();
@@ -34,7 +34,7 @@ public class Player extends AbstractPlayer{
 
     @Override
     protected void setPlayerName() {
-        playerName = name ; 
+        playerName = name;
     }
 
     @Override
@@ -63,16 +63,15 @@ public class Player extends AbstractPlayer{
     }
 
     @Override
-    public void makeMove(Player enemy){
+    public void makeMove(Player enemy) {
     }
 
-    
     @Override
     protected void shoot(Player enemy, Cell targetCell) {
-            
+
         handleCellHit(targetCell, enemy);
         super.setLastCellShot(targetCell.getX(), targetCell.getY());
-        
+
     }
 
     @Override
@@ -80,15 +79,14 @@ public class Player extends AbstractPlayer{
         if (hasUsedBurstFire) {
             throw new IllegalStateException("Tir en rafale déjà utilisé");
         }
-        
+
         for (int i = 0; i < 3; i++) {
             shoot(enemy, targetCells.get(i));
-            if(enemy.shouldSkipNextTurn()) break; 
+            if (enemy.shouldSkipNextTurn())
+                break;
         }
         hasUsedBurstFire = true;
     }
-
-
 
     @Override
     protected void useAirStrike(Player enemy, boolean isLine, int target) {
@@ -100,7 +98,7 @@ public class Player extends AbstractPlayer{
             Cell targetCell = isLine ? enemy.getBoard().getCells()[target][i] : enemy.getBoard().getCells()[i][target];
             handleCellHit(targetCell, enemy);
             super.setLastCellShot(targetCell.getX(), targetCell.getY());
-        }           
+        }
         hasUsedAirStrike = true;
     }
 
@@ -110,12 +108,12 @@ public class Player extends AbstractPlayer{
             throw new IllegalStateException("Missile nucléaire déjà utilisé");
         }
         int radius = 1;
-    
+
         int startX = Math.max(0, targetX - radius);
         int startY = Math.max(0, targetY - radius);
         int endX = Math.min(enemy.getBoard().getCells().length - 1, targetX + radius);
         int endY = Math.min(enemy.getBoard().getCells()[0].length - 1, targetY + radius);
-    
+
         for (int i = startX; i <= endX; i++) {
             for (int j = startY; j <= endY; j++) {
                 Cell targetCell = enemy.getBoard().getCells()[i][j];
@@ -125,7 +123,6 @@ public class Player extends AbstractPlayer{
         }
         hasUsedNuclearBomb = true;
     }
-
 
     @Override
     protected void handleCellHit(Cell targetCell, Player enemy) {
@@ -138,35 +135,31 @@ public class Player extends AbstractPlayer{
                 enemy.getBoard().updateAvailableCoordinates(targetCell.getX(), targetCell.getY());
                 incrementStatNbTotalShot();
                 if (targetCell.getId() > 0) {
-                    // Gestion des mines
+
                     if (targetCell.getId() == 99) {
                         enemy.setSkipNextTurn(true);
-                        
-                    } else { // Gestion des bateaux
+
+                    } else {
                         Boat boat = enemy.getBoard().getBoats(targetCell.getId());
                         boat.getCells(targetCell.getX(), targetCell.getY()).shoot();
                         incrementStatNbSuccessfullShot();
 
                         currentBoat = targetCell.getId();
 
-                        // Ajouter la cellule touchée à la liste des cellules connues
                         cellListAdd(knownBoatCells, targetCell);
 
-                        // Mise à jour des cellules potentielles autour de la cellule touchée
                         potentialCells = updatePotentialCells(knownBoatCells, enemy);
 
                         if (boat.isSunk()) {
                             incrementStatNbBoatShot();
 
-                            // Mise à jour des cellules non potentielles autour du bateau coulé
                             updateNonPotentialCells(knownBoatCells, enemy);
 
-                            // Réinitialiser les listes connues et potentielles après avoir coulé un bateau
                             knownBoatCells = new ArrayList<>();
                             potentialCells = new ArrayList<>();
-                            currentBoat = 0; // Réinitialiser l'ID du bateau courant
+                            currentBoat = 0;
                         } else {
-                            // Si le bateau n'est pas encore coulé, mettre à jour l'ID du bateau courant
+
                             currentBoat = targetCell.getId();
                         }
                     }
@@ -174,7 +167,6 @@ public class Player extends AbstractPlayer{
             }
         }
     }
-
 
     @Override
     protected void useSubmarine(Player enemy, boolean isLine, int target) {
@@ -185,9 +177,9 @@ public class Player extends AbstractPlayer{
             for (int i = 0; i < 10; i++) {
                 Cell cell = enemy.getBoard().getCells()[target][i];
                 if (cell.getId() > 0) {
-                    if(cell.getId() == 99){
-                         subMarineDetectedMine.add(cell);
-                    }else{
+                    if (cell.getId() == 99) {
+                        subMarineDetectedMine.add(cell);
+                    } else {
                         subMarineDetectedBoat.add(cell);
                     }
                 }
@@ -195,10 +187,10 @@ public class Player extends AbstractPlayer{
         } else {
             for (int i = 0; i < 10; i++) {
                 Cell cell = enemy.getBoard().getCells()[i][target];
-                if (cell.getId() > 0) { // Exclure les mines
-                    if(cell.getId() == 99){
-                         subMarineDetectedMine.add(cell);
-                    }else{
+                if (cell.getId() > 0) {
+                    if (cell.getId() == 99) {
+                        subMarineDetectedMine.add(cell);
+                    } else {
                         subMarineDetectedBoat.add(cell);
                     }
                 }
@@ -220,11 +212,10 @@ public class Player extends AbstractPlayer{
         for (int i = startX; i <= endX; i++) {
             for (int j = startY; j <= endY; j++) {
                 Cell cell = enemy.getBoard().getCells()[i][j];
-                if (cell.getId() > 0 ) { 
-                    if(cell.getId() == 99){
+                if (cell.getId() > 0) {
+                    if (cell.getId() == 99) {
                         radarDetectedMines.add(cell);
-                    }
-                    else{
+                    } else {
                         radarDetectedBoats.add(cell);
                     }
                 }
@@ -233,10 +224,9 @@ public class Player extends AbstractPlayer{
         hasUsedRadar = true;
     }
 
-   
     @Override
     public void placeBoats() {
-        
+
         Random rand = new Random();
         int firstProtectedBoat = rand.nextInt(Config.getNbBoats() - 2);
         int secondProtectedBoat;
@@ -248,7 +238,8 @@ public class Player extends AbstractPlayer{
             String direction;
             int x, y;
             int boatSize = Integer.valueOf(Config.getBoatsConfig(i)[2]);
-            boolean hasDefenseSystem = (i == firstProtectedBoat || i == secondProtectedBoat) && !Config.getBoatsConfig(i)[0].equals("99");
+            boolean hasDefenseSystem = (i == firstProtectedBoat || i == secondProtectedBoat)
+                    && !Config.getBoatsConfig(i)[0].equals("99");
 
             boolean error;
             do {
@@ -257,9 +248,12 @@ public class Player extends AbstractPlayer{
                 x = rand.nextInt(randomDirection == 1 ? 10 - boatSize : 10);
                 y = rand.nextInt(randomDirection == 1 ? 10 : 10 - boatSize);
 
-                Cell[] boatCoordinates = board.generateBoatCoordinates(x, y, direction, boatSize, Integer.valueOf(Config.getBoatsConfig(i)[0]), hasDefenseSystem);
-                if (board.isInBoard(boatCoordinates) && !board.existsOverlap(boatCoordinates) && !board.existsNeighbors(boatCoordinates)) {
-                    board.addBoat(new Boat(boatCoordinates, Integer.valueOf(Config.getBoatsConfig(i)[0]), Config.getBoatsConfig(i)[1], hasDefenseSystem)); // Ajout du système de défense
+                Cell[] boatCoordinates = board.generateBoatCoordinates(x, y, direction, boatSize,
+                        Integer.valueOf(Config.getBoatsConfig(i)[0]), hasDefenseSystem);
+                if (board.isInBoard(boatCoordinates) && !board.existsOverlap(boatCoordinates)
+                        && !board.existsNeighbors(boatCoordinates)) {
+                    board.addBoat(new Boat(boatCoordinates, Integer.valueOf(Config.getBoatsConfig(i)[0]),
+                            Config.getBoatsConfig(i)[1], hasDefenseSystem));
                     error = false;
                 } else {
                     error = true;
@@ -271,7 +265,7 @@ public class Player extends AbstractPlayer{
     protected void cellListAdd(List<Cell> list, Cell cell) {
         list.add(cell);
     }
-    
+
     protected void freezeCells(List<Cell> list, Player player) {
         for (Cell c : list) {
             player.getBoard().getCell(c.getX(), c.getY()).updatePotential(false);
@@ -281,7 +275,7 @@ public class Player extends AbstractPlayer{
     protected List<Cell> updatePotentialCells(List<Cell> knownBoatCells, Player player) {
         List<Cell> result = new ArrayList<>();
         int[][] testingCoordinates = { { -1, 0 }, { 1, 0 }, { 0, 1 }, { 0, -1 } };
-    
+
         for (Cell c : knownBoatCells) {
             for (int[] coordinates : testingCoordinates) {
                 int newX = c.getX() + coordinates[0];
@@ -299,12 +293,12 @@ public class Player extends AbstractPlayer{
 
     protected void updateNonPotentialCells(List<Cell> list, Player player) {
         if (list.size() < 2) {
-            return; // Sortir de la méthode si la liste ne contient pas au moins deux éléments
+            return;
         }
-    
+
         boolean vertical = list.get(0).getX() == list.get(1).getX();
         int[] tempCoordinates = { -1, 1 };
-    
+
         for (Cell c : list) {
             for (int j : tempCoordinates) {
                 int x = c.getX() + (vertical ? 0 : j);
@@ -315,6 +309,5 @@ public class Player extends AbstractPlayer{
             }
         }
     }
-    
 
 }

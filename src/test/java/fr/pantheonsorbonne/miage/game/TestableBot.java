@@ -6,7 +6,7 @@ import fr.pantheonsorbonne.miage.game.playerBots.Bot;
 import fr.pantheonsorbonne.miage.game.playerBots.Player;
 import fr.pantheonsorbonne.miage.game.setting.Cell;
 
-public class TestableBot extends Bot{
+public class TestableBot extends Bot {
 
     public TestableBot(String name) {
         super(name);
@@ -77,7 +77,7 @@ public class TestableBot extends Bot{
     public boolean publicHasUsedSubmarine() {
         return super.hasUsedSubmarine;
     }
-    
+
     public boolean publicHasUsedBurstFire() {
         return super.hasUsedBurstFire;
     }
@@ -90,7 +90,7 @@ public class TestableBot extends Bot{
         return super.hasUsedNuclearBomb;
     }
 
-    public void publicUseSubmarine(Player enemy, boolean isLine , int target) {
+    public void publicUseSubmarine(Player enemy, boolean isLine, int target) {
         super.useSubmarine(enemy, isLine, target);
     }
 
@@ -134,11 +134,11 @@ public class TestableBot extends Bot{
         return super.hasUsedRadar;
     }
 
-    public  List<Cell> SetSubMarineDetectedMine(Player enemy) {
+    public List<Cell> SetSubMarineDetectedMine(Player enemy) {
         return super.subMarineDetectedMine;
     }
 
-    public  List<Cell> SetRadarDetectedMine(Player enemy) {
+    public List<Cell> SetRadarDetectedMine(Player enemy) {
         return super.radarDetectedMines;
     }
 
@@ -154,7 +154,7 @@ public class TestableBot extends Bot{
         return super.isInBoard(cells, cell);
     }
 
-    public Cell getRandomCell(){
+    public Cell getRandomCell() {
         return super.targetCellRandomForShoot;
     }
 
@@ -166,11 +166,7 @@ public class TestableBot extends Bot{
         return super.potentialCells;
     }
 
-    
     public int setCurrentBoat(Player enemy) {
         return super.currentBoat;
     }
 }
-
-
-

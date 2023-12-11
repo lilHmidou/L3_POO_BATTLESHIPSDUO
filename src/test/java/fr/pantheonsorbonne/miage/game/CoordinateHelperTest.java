@@ -10,14 +10,13 @@ public class CoordinateHelperTest {
     public void testLetterCoordinateToNumber() {
         assertEquals("0", CoordinateHelper.letterCoordinateToNumber("A"));
         assertEquals("1", CoordinateHelper.letterCoordinateToNumber("B"));
-        // ... Tests pour les autres lettres
+
     }
 
     @Test
     public void testNumberCoordinateToLetter() {
         assertEquals("A", CoordinateHelper.numberCoordinateToLetter(0));
         assertEquals("B", CoordinateHelper.numberCoordinateToLetter(1));
-        // ... Tests pour les autres numéros
     }
 
     @Test
@@ -29,4 +28,3 @@ public class CoordinateHelperTest {
         assertFalse(CoordinateHelper.isValid(5, 10));
     }
 }
-

@@ -1,4 +1,5 @@
 package fr.pantheonsorbonne.miage.game.game;
+
 import fr.pantheonsorbonne.miage.game.playerBots.Bot;
 import fr.pantheonsorbonne.miage.game.playerBots.Player;
 

@@ -39,8 +39,8 @@ public class CellTest {
     @Test
     public void testCellBoatAssignment() {
         Cell cell = new Cell(5, 10);
-        cell.addBoat(1); // ID du bateau
+        cell.addBoat(1);
         assertEquals(1, cell.getId());
-        // Tester la cohérence avec la configuration du bateau
+
     }
 }
