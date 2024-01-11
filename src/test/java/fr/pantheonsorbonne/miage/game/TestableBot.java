@@ -154,9 +154,7 @@ public class TestableBot extends Bot {
         return super.isInBoard(cells, cell);
     }
 
-    public Cell getRandomCell() {
-        return super.targetCellRandomForShoot;
-    }
+
 
     public List<Cell> setKnownBoatCells(Player enemy) {
         return super.knownBoatCells;

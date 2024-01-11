@@ -38,14 +38,14 @@ public class GameTest {
         assertNotNull(game.getPlayer2(), "Le joueur 2 ne doit pas être null");
 
     }
-
+/*
     @Test
-    public void testSetFirstPlayer() {
+    public void testSetFirstPlayer() { //un test unitaire ne devrait pas contenir de tirage aléatoire
         game.setFirstPlayer();
         assertTrue(game.getPlayerPlay() == 1 || game.getPlayerPlay() == 2,
                 "Le premier joueur doit être soit le joueur 1 soit le joueur 2");
     }
-
+*/
     @Test
     public void testEndMethodDisplaysWinner() {
 

@@ -7,7 +7,7 @@ public class Game {
 
     private Player player1;
     private Player player2;
-    private int playerPlay;
+    private int playerPlay;//nom mystique
     private String playerWinner;
 
     private void printGameLauncher() {
@@ -73,7 +73,7 @@ public class Game {
     public void end() {
         System.out.println("Le joueur " + playerWinner + " a gagné la partie");
         player1.printStats();
-        System.out.println("");
+        System.out.println(""); //?
         player2.printStats();
     }
 

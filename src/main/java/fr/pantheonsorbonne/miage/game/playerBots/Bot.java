@@ -18,7 +18,7 @@ public class Bot extends Player {
 
     protected int rounds = 0;
     protected boolean isSubmarineLineScan;
-    protected Cell targetCellRandomForShoot;
+
 
     public Bot(String name) {
         super();
@@ -121,7 +121,7 @@ public class Bot extends Player {
 
         } while (validShot);
 
-        this.targetCellRandomForShoot = targetCellRandom;
+
         super.shoot(enemy, targetCellRandom);
     }
 
@@ -167,7 +167,7 @@ public class Bot extends Player {
     protected List<Cell> prepareBurstFireCells(Cell startingCell, Player enemy) {
         List<Cell> targetCells = new ArrayList<>();
         targetCells.add(startingCell);
-        while (targetCells.size() < 3) {
+        while (targetCells.size() < 3) {  //use cte
             Cell targetCellRandom = getRandomValidCell(enemy);
 
             if (!targetCells.contains(targetCellRandom)) {

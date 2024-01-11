@@ -136,7 +136,7 @@ public class Board {
     }
 
     public Cell[] generateBoatCoordinates(int x, int y, String direction, int boatSize, int boatId,
-            boolean isProtected) {
+            boolean isProtected) { //is protected n'est pas utilisé ici
         Cell[] cells = new Cell[boatSize];
         for (int i = 0; i < boatSize; i++) {
             if (direction.equals("H")) {

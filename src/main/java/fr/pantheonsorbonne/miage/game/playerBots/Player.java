@@ -29,7 +29,7 @@ public class Player extends AbstractPlayer {
         super.skipNextTurn = false;
         super.hasUsedSubmarine = false;
         super.hasUsedNuclearBomb = false;
-        setPlayerName();
+        setPlayerName(); //il ne devrait pas y avoir d'appel à des méthodes non private dans le constr. (voir cours)
     }
 
     @Override
@@ -174,7 +174,7 @@ public class Player extends AbstractPlayer {
             throw new IllegalStateException("Sous-marin déjà utilisé");
         }
         if (isLine) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10; i++) { // il devrait y avoir des constantes ici plutôt que des nombres en dur
                 Cell cell = enemy.getBoard().getCells()[target][i];
                 if (cell.getId() > 0) {
                     if (cell.getId() == 99) {
@@ -185,7 +185,7 @@ public class Player extends AbstractPlayer {
                 }
             }
         } else {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10; i++) { //same here
                 Cell cell = enemy.getBoard().getCells()[i][target];
                 if (cell.getId() > 0) {
                     if (cell.getId() == 99) {
@@ -227,7 +227,7 @@ public class Player extends AbstractPlayer {
     @Override
     public void placeBoats() {
 
-        Random rand = new Random();
+        Random rand = new Random(); //le random devrait être un variable d'instance ou de classe
         int firstProtectedBoat = rand.nextInt(Config.getNbBoats() - 2);
         int secondProtectedBoat;
         do {
