@@ -5,7 +5,7 @@ public class Boat {
     private String name;
     private Cell[] cells;
     private String orientation;
-    private boolean hasDefenseSystem;
+    private boolean hasDefenseSystem; // should be on a BoatSubclass that implements a Defendable interface
 
     public Boat(Cell[] cells, int id, String name, boolean hasDefenseSystem) {
         this.cells = cells;
